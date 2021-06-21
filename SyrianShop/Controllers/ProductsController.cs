@@ -28,7 +28,7 @@ namespace SyrianShop.Controllers
             return await _context.Products.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/Products/51
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
