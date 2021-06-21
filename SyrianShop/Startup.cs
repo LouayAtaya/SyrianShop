@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SyrianShop.dataContexts;
+using SyrianShop.models;
 using SyrianShop.repositories;
 
 namespace SyrianShop
@@ -32,11 +33,18 @@ namespace SyrianShop
             services.AddDbContext<SyrianShopContext>(o =>
                 o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ProductRepository, ProductRepository>();
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            services.AddCors(c =>
+                {
+                    c.AddPolicy("CorsPolicy", policy =>
+                     {
+                         policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+                     }); 
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +56,8 @@ namespace SyrianShop
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

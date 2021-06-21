@@ -8,23 +8,54 @@ using System.Threading.Tasks;
 
 namespace SyrianShop.repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : GenericRepository<Product>
     {
         private SyrianShopContext _syrianShopContext;
 
-        public ProductRepository(SyrianShopContext syrianShopContext)
+        public ProductRepository(SyrianShopContext syrianShopContext):base(syrianShopContext)
         {
             this._syrianShopContext = syrianShopContext;
         }
 
-        async Task<Product> IProductRepository.GetProductByIdAsync(int id)
+        public async Task<IList<Product>> GetProductsAsync(string sortBy, int pageStart, int pageSize)
         {
-            return await this._syrianShopContext.Products.FindAsync(id);
-        }
+            IQueryable<Product> query = _syrianShopContext.Products.AsQueryable();
 
-        async Task<IList<Product>> IProductRepository.GetProductsAsync()
-        {
-            return await this._syrianShopContext.Products.Include(p=>p.ProductImages).ToListAsync();
+            //Sort
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                switch (sortBy.ToLower())
+                {
+                    case "title":
+                        query = query.OrderBy(p => p.Title);
+                        break;
+                    case "description":
+                        query = query.OrderBy(p => p.Description);
+                        break;
+                    case "titleDesc":
+                        query = query.OrderByDescending(p => p.Title);
+                        break;
+                    case "descriptionDesc":
+                        query = query.OrderByDescending(p => p.Description);
+                        break;
+                    default:
+                        query = query.OrderBy(p => p.CreationDate);
+                        break;
+                }
+
+            }
+            else
+            {
+                //default order by CreationDate
+                query = query.OrderBy(p => p.CreationDate);
+
+            }
+
+            //pagination
+            query =query.Skip(pageStart).Take(pageSize);
+
+            return await query.ToListAsync();
+
         }
     }
 }

@@ -15,25 +15,26 @@ namespace SyrianShop.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private IProductRepository _productRepository;
+        private ProductRepository _productRepository;
 
-        public ProductsController(IProductRepository productRepository)
+        public ProductsController(ProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProducts()
+        public async Task<ActionResult<List<Product>>> GetProducts(string sortBy,int pageStart=0, int pageSize=10)
         {
-            return  Ok(await _productRepository.GetProductsAsync());
+            return  Ok(await _productRepository.GetProductsAsync(sortBy, pageStart, pageSize));
         }
 
         // GET: api/Products/51
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _productRepository.GetProductByIdAsync(id);
+
+            var product = await _productRepository.GetByIdAsync(id);
 
             if (product == null)
             {
