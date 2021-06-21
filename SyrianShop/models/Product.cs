@@ -29,6 +29,6 @@ namespace SyrianShop.models
 
         public DateTime CreationDate { get; set; }
 
-        public ICollection<ProductImage> ProductImages { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
     }
 }

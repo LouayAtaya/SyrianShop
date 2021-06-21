@@ -14,6 +14,6 @@ namespace SyrianShop.models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
-        public ICollection<Role> Roles { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
     }
 }

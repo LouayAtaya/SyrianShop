@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SyrianShop.dataContexts;
+using SyrianShop.repositories;
 
 namespace SyrianShop
 {
@@ -30,6 +31,11 @@ namespace SyrianShop
 
             services.AddDbContext<SyrianShopContext>(o =>
                 o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
         }
 

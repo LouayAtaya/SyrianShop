@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SyrianShop.EntityConfigurations;
 using SyrianShop.models;
 using System;
 using System.Collections.Generic;
@@ -26,43 +27,25 @@ namespace SyrianShop.dataContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Product
-            modelBuilder.Entity<Product>().Property(p => p.Title)
-                .HasMaxLength(50)
-                .IsRequired();
-            modelBuilder.Entity<Product>().Property(p => p.Description)
-               .HasMaxLength(500);
-            modelBuilder.Entity<Product>().Property(p => p.Quantity)
-              .IsRequired();
-            modelBuilder.Entity<Product>().Property(p => p.Price)
-              .IsRequired();
-            modelBuilder.Entity<Product>().Property(p => p.CreationDate);
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+
 
             //ProductImage
-            modelBuilder.Entity<ProductImage>().Property(p => p.Name)
-                .HasMaxLength(50)
-                .IsRequired();
-            modelBuilder.Entity<ProductImage>().Property(p => p.Path)
-               .HasMaxLength(200);
+            modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
+
 
             //User
-            modelBuilder.Entity<User>().Property(p => p.Name)
-                .HasMaxLength(50)
-                .IsRequired();
-            modelBuilder.Entity<User>().Property(p => p.Password)
-               .HasMaxLength(50)
-               .IsRequired();
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+
 
             //roles
-            modelBuilder.Entity<Role>().Property(p => p.Name)
-               .HasMaxLength(50)
-               .IsRequired();
-            
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
 
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseLazyLoadingProxies();
+            optionsBuilder.UseLazyLoadingProxies();
         }
     }
 }
