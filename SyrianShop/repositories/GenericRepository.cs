@@ -18,12 +18,28 @@ namespace SyrianShop.repositories
 
         public async Task<IList<T>> GetAllAsync()
         {
-            return await _syrianShopContext.Set<T>().ToListAsync();
+            try
+            {
+                return await _syrianShopContext.Set<T>().ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _syrianShopContext.Set<T>().FindAsync(id);
+            try
+            {
+                return await _syrianShopContext.Set<T>().FindAsync(id);
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+
+            }
         }
 
         

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SyrianShop.dataContexts;
+using SyrianShop.DTOs;
+using SyrianShop.errorHandling;
+using SyrianShop.helper;
 using SyrianShop.models;
 using SyrianShop.repositories;
 
@@ -24,24 +28,42 @@ namespace SyrianShop.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProducts(string sortBy,int pageStart=0, int pageSize=10)
+        public async Task<ActionResult<PaginationResult<Product>>> GetProducts([FromQuery] ProductParams productParams)
         {
-            return  Ok(await _productRepository.GetProductsAsync(sortBy, pageStart, pageSize));
+            try
+            {
+                var products = await _productRepository.GetProductsAsync(productParams.SortBy, productParams.PageStart, productParams.PageSize);
+
+                var paginationResult = new PaginationResult<Product>(productParams.PageStart, productParams.PageSize, _productRepository.TotalRecords, products);
+                
+                return Ok(paginationResult);
+            }
+            catch
+            {
+                return BadRequest(new ApiErrorResponse(HttpStatusCode.BadRequest));
+            }
+            
         }
 
         // GET: api/Products/51
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-
-            var product = await _productRepository.GetByIdAsync(id);
-
-            if (product == null)
+            try
             {
-                return NotFound();
-            }
+                var product = await _productRepository.GetByIdAsync(id);
 
-            return product;
+                if (product == null)
+                {
+                    return NotFound(new ApiErrorResponse(HttpStatusCode.NotFound));
+                }
+
+                return Ok(product);
+            }
+            catch
+            {
+                return BadRequest(new ApiErrorResponse(HttpStatusCode.BadRequest));
+            }
         }
 
       

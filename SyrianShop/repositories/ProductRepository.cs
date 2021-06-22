@@ -12,6 +12,8 @@ namespace SyrianShop.repositories
     {
         private SyrianShopContext _syrianShopContext;
 
+        public int TotalRecords { set; get; }
+
         public ProductRepository(SyrianShopContext syrianShopContext):base(syrianShopContext)
         {
             this._syrianShopContext = syrianShopContext;
@@ -19,43 +21,68 @@ namespace SyrianShop.repositories
 
         public async Task<IList<Product>> GetProductsAsync(string sortBy, int pageStart, int pageSize)
         {
-            IQueryable<Product> query = _syrianShopContext.Products.AsQueryable();
-
-            //Sort
-            if (!string.IsNullOrEmpty(sortBy))
+            try
             {
-                switch (sortBy.ToLower())
+                IQueryable<Product> query = _syrianShopContext.Products.AsQueryable();
+
+                //Sort
+                if (!string.IsNullOrEmpty(sortBy))
                 {
-                    case "title":
-                        query = query.OrderBy(p => p.Title);
-                        break;
-                    case "description":
-                        query = query.OrderBy(p => p.Description);
-                        break;
-                    case "titleDesc":
-                        query = query.OrderByDescending(p => p.Title);
-                        break;
-                    case "descriptionDesc":
-                        query = query.OrderByDescending(p => p.Description);
-                        break;
-                    default:
-                        query = query.OrderBy(p => p.CreationDate);
-                        break;
+                    switch (sortBy)
+                    {
+                        case "title":
+                            query = query.OrderBy(p => p.Title);
+                            break;
+                        case "description":
+                            query = query.OrderBy(p => p.Description);
+                            break;
+                        case "quantity":
+                            query = query.OrderBy(p => p.Quantity);
+                            break;
+                        case "price":
+                            query = query.OrderBy(p => p.Price);
+                            break;
+                        case "titleDesc":
+                            query = query.OrderByDescending(p => p.Title);
+                            break;
+                        case "descriptionDesc":
+                            query = query.OrderByDescending(p => p.Description);
+                            break;
+                        case "quantityDesc":
+                            query = query.OrderByDescending(p => p.Quantity);
+                            break;
+                        case "priceDesc":
+                            query = query.OrderByDescending(p => p.Price);
+                            break;
+                        default:
+                            query = query.OrderBy(p => p.CreationDate);
+                            break;
+                    }
+
+                }
+                else
+                {
+                    //default order by CreationDate
+                    query = query.OrderBy(p => p.CreationDate);
+
                 }
 
+                //pagination
+                query = query.Skip(pageStart).Take(pageSize);
+
+                //count the records returned
+                TotalRecords = await query.CountAsync();
+
+                return await query.ToListAsync();
+
             }
-            else
+            catch (Exception e)
             {
-                //default order by CreationDate
-                query = query.OrderBy(p => p.CreationDate);
-
+                throw new Exception(e.Message);
             }
-
-            //pagination
-            query =query.Skip(pageStart).Take(pageSize);
-
-            return await query.ToListAsync();
 
         }
+
+
     }
 }
