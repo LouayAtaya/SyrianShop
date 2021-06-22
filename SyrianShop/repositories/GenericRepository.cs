@@ -46,8 +46,8 @@ namespace SyrianShop.repositories
         {
             try
             {
-                var x= _syrianShopContext.Set<T>().Add(entity);
-                if(x!=null)
+                _syrianShopContext.Set<T>().Add(entity);
+                
                 await Save();
 
                 return entity;
