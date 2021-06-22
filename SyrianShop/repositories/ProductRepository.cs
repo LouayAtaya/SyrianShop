@@ -10,7 +10,7 @@ namespace SyrianShop.repositories
 {
     public class ProductRepository : GenericRepository<Product>
     {
-        private SyrianShopContext _syrianShopContext;
+        private readonly SyrianShopContext _syrianShopContext;
 
         public int TotalRecords { set; get; }
 
@@ -28,37 +28,18 @@ namespace SyrianShop.repositories
                 //Sort
                 if (!string.IsNullOrEmpty(sortBy))
                 {
-                    switch (sortBy)
+                    query = sortBy switch
                     {
-                        case "title":
-                            query = query.OrderBy(p => p.Title);
-                            break;
-                        case "description":
-                            query = query.OrderBy(p => p.Description);
-                            break;
-                        case "quantity":
-                            query = query.OrderBy(p => p.Quantity);
-                            break;
-                        case "price":
-                            query = query.OrderBy(p => p.Price);
-                            break;
-                        case "titleDesc":
-                            query = query.OrderByDescending(p => p.Title);
-                            break;
-                        case "descriptionDesc":
-                            query = query.OrderByDescending(p => p.Description);
-                            break;
-                        case "quantityDesc":
-                            query = query.OrderByDescending(p => p.Quantity);
-                            break;
-                        case "priceDesc":
-                            query = query.OrderByDescending(p => p.Price);
-                            break;
-                        default:
-                            query = query.OrderBy(p => p.CreationDate);
-                            break;
-                    }
-
+                        "title" => query.OrderBy(p => p.Title),
+                        "description" => query.OrderBy(p => p.Description),
+                        "quantity" => query.OrderBy(p => p.Quantity),
+                        "price" => query.OrderBy(p => p.Price),
+                        "titleDesc" => query.OrderByDescending(p => p.Title),
+                        "descriptionDesc" => query.OrderByDescending(p => p.Description),
+                        "quantityDesc" => query.OrderByDescending(p => p.Quantity),
+                        "priceDesc" => query.OrderByDescending(p => p.Price),
+                        _ => query.OrderBy(p => p.CreationDate),
+                    };
                 }
                 else
                 {

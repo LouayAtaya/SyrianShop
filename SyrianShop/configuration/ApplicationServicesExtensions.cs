@@ -18,6 +18,7 @@ namespace SyrianShop.configuration
         {
             //repositories
             services.AddScoped<ProductRepository, ProductRepository>();
+            services.AddScoped<UserRepository, UserRepository>();
 
             //json cycle
             services.AddControllers().AddNewtonsoftJson(options =>

@@ -18,51 +18,70 @@ namespace SyrianShop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="Admin")]
-    public class ProductsController : ControllerBase
+    [Authorize]
+    public class UsersController : ControllerBase
     {
-        private readonly ProductRepository _productRepository;
+        private readonly UserRepository _userRepository;
 
-        public ProductsController(ProductRepository productRepository)
+        public UsersController(UserRepository userRepository)
         {
-            _productRepository = productRepository;
+            _userRepository = userRepository;
         }
 
-        // GET: api/Products
-        [HttpGet]
+        [HttpPost]
+        [Route("Login")]
         [AllowAnonymous]
-        public async Task<ActionResult<PaginationResult<Product>>> GetProducts([FromQuery] ProductParams productParams)
+        public ActionResult<User> Login(UserDto loginUser)
+        {
+            
+            try
+            {
+                var user=_userRepository.login(loginUser);
+
+                if (user == null)
+                {
+                    return Unauthorized(new ApiErrorResponse(HttpStatusCode.Unauthorized, "Invalid Login Credentials: User Name Or Password"));
+                }
+
+                var token = JwtTokenGenerator.GenerateToken(user);
+                return Ok(new { token= token });
+
+            }
+            catch(Exception e)
+            {
+                return BadRequest(new ApiErrorResponse(HttpStatusCode.BadRequest));
+            }
+        }
+
+        // GET: api/Users
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             try
             {
-                var products = await _productRepository.GetProductsAsync(productParams.SortBy, productParams.PageStart, productParams.PageSize);
-
-                var paginationResult = new PaginationResult<Product>(productParams.PageStart, productParams.PageSize, _productRepository.TotalRecords, products);
-                
-                return Ok(paginationResult);
+                var users = await _userRepository.GetAllAsync();
+                return  Ok(users);
             }
             catch
             {
                 return BadRequest(new ApiErrorResponse(HttpStatusCode.BadRequest));
             }
-            
         }
 
-        // GET: api/Products/51
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
-        public async Task<ActionResult<Product>> GetProduct(int id)
-        {
+        public async Task<ActionResult<User>> GetUser(int id)
+        { 
             try
             {
-                var product = await _productRepository.GetByIdAsync(id);
+                var user = await _userRepository.GetByIdAsync(id);
 
-                if (product == null)
+                if (user == null)
                 {
                     return NotFound(new ApiErrorResponse(HttpStatusCode.NotFound));
                 }
 
-                return Ok(product);
+                return Ok(user);
             }
             catch
             {
@@ -70,45 +89,42 @@ namespace SyrianShop.Controllers
             }
         }
 
-        // PUT: api/products/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<ActionResult<Product>> PutProduct(int id, Product product)
+        public async Task<ActionResult<User>> PutUser(int id, User user)
         {
             try
             {
-                if (id != product.Id)
+                if(id != user.Id)
                 {
                     return BadRequest(new ApiErrorResponse(HttpStatusCode.BadRequest));
                 }
-                var existProduct = await _productRepository.Edit(product);
-                return Ok(existProduct);
+                var existUser=await _userRepository.Edit(user);
+                return Ok(existUser);
             }
             catch
             {
-                Boolean isExist = await _productRepository.Exists(id);
-                if (!isExist)
+                Boolean isExist = await _userRepository.Exists(id);
+                if(!isExist)
                     return NotFound(new ApiErrorResponse(HttpStatusCode.NotFound));
 
                 return BadRequest(new ApiErrorResponse(HttpStatusCode.BadRequest));
             }
-
+       
         }
 
-        // POST: api/products
+        // POST: api/Users
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
             try
             {
-                if(!ModelState.IsValid)
-                    return BadRequest(new ApiErrorResponse(HttpStatusCode.BadRequest));
-
-                var addedProduct = await _productRepository.Add(product);
-                return CreatedAtAction("GetProduct", new { id = product.Id }, addedProduct);
+                var addedUser = await _userRepository.Add(user);
+                return CreatedAtAction("GetUser", new { id = user.Id }, addedUser);
             }
             catch
             {
@@ -116,20 +132,20 @@ namespace SyrianShop.Controllers
             }
         }
 
-        // DELETE: api/products/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        public async Task<ActionResult<User>> DeleteUser(int id)
         {
             try
             {
-                var product = await _productRepository.GetByIdAsync(id);
-                if (product == null)
+                var user = await _userRepository.GetByIdAsync(id);
+                if (user == null)
                 {
                     return NotFound(new ApiErrorResponse(HttpStatusCode.NotFound));
                 }
 
-                _productRepository.Delete(product);
-                return Ok(product);
+                _userRepository.Delete(user);
+                return Ok(user);
             }
             catch
             {
@@ -138,6 +154,6 @@ namespace SyrianShop.Controllers
 
         }
 
-
+        
     }
 }

@@ -11,8 +11,18 @@ namespace SyrianShop.repositories
 
         Task<T> GetByIdAsync(int id);
 
-        Task<IList<T>> GetAllAsync();       
+        Task<IList<T>> GetAllAsync();
 
+        Task<T> Add(T entity);
+
+        void Delete(T entity);
+
+        Task<T> Edit(T entity);
+
+
+        Task<Boolean> Exists(int id);
+      
+   
 
     }
 }

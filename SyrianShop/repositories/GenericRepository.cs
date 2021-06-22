@@ -42,6 +42,71 @@ namespace SyrianShop.repositories
             }
         }
 
-        
+        public async Task<T> Add(T entity)
+        {
+            try
+            {
+                var x= _syrianShopContext.Set<T>().Add(entity);
+                if(x!=null)
+                await Save();
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async void Delete(T entity)
+        {
+            try
+            {
+                _syrianShopContext.Set<T>().Remove(entity);
+                await Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<T> Edit(T entity)
+        {
+            try
+            {
+                _syrianShopContext.Entry(entity).State = EntityState.Modified;
+                await Save();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+       
+        public async Task<bool> Exists(int id)
+        {
+
+            if (await this.GetByIdAsync(id) !=null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private async Task Save()
+        {
+            try
+            {
+                await _syrianShopContext.SaveChangesAsync();
+               
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
