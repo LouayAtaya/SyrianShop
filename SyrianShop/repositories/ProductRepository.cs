@@ -34,10 +34,13 @@ namespace SyrianShop.repositories
                         "description" => query.OrderBy(p => p.Description),
                         "quantity" => query.OrderBy(p => p.Quantity),
                         "price" => query.OrderBy(p => p.Price),
+                        "creationDate" => query.OrderBy(p => p.CreationDate),
                         "titleDesc" => query.OrderByDescending(p => p.Title),
                         "descriptionDesc" => query.OrderByDescending(p => p.Description),
                         "quantityDesc" => query.OrderByDescending(p => p.Quantity),
                         "priceDesc" => query.OrderByDescending(p => p.Price),
+                        "creationDateDesc" => query.OrderByDescending(p => p.CreationDate),
+
                         _ => query.OrderBy(p => p.CreationDate),
                     };
                 }

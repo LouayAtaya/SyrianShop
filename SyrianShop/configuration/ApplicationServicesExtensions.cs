@@ -27,11 +27,16 @@ namespace SyrianShop.configuration
             //enable cors
             services.AddCors(c =>
             {
-                c.AddPolicy("CorsPolicy", policy =>
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+            /*
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", policy =>
                 {
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                 });
-            });
+            });*/
 
 
             //model validation custom message

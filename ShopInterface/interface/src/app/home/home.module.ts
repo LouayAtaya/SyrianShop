@@ -6,7 +6,7 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { HomeRoutingModule } from './home.routing.module';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { LoginComponent } from './pages/login/login.component';
-
+import {PaginatorModule} from 'primeng/paginator';
 
 
 @NgModule({
@@ -14,7 +14,8 @@ import { LoginComponent } from './pages/login/login.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    PaginatorModule
   ],
   exports:[
   

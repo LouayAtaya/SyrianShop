@@ -9,9 +9,9 @@ import { ProductAddComponent } from './product-add/product-add.component';
 const routes: Routes = [
   {path:"", component:ProductListComponent},
   {path:"add", component:ProductAddComponent},
-  {path:"{id}", component:ProductDetailComponent},
-  {path:"delete/{id}", component:ProductDeleteComponent},
-  {path:"update/{id}", component:ProductUpdateComponent}
+  {path:":id", component:ProductDetailComponent},
+  {path:"delete/:id", component:ProductDeleteComponent},
+  {path:"update/:id", component:ProductUpdateComponent}
 
 ];
 

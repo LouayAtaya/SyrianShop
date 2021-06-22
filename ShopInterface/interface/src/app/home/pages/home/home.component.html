@@ -7,30 +7,14 @@
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">CPU Traffic</span>
+                <span class="info-box-text">Products</span>
                 <span class="info-box-number">
                     10
-                    <small>%</small>
+                    <small></small>
                 </span>
             </div>
-            <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box -->
     </div>
-    <!-- /.col -->
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
-                <span class="info-box-number">41,410</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <!-- /.col -->
 
     <!-- fix for small devices only -->
     <div class="clearfix hidden-md-up"></div>
@@ -40,26 +24,67 @@
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-text">Users</span>
+                <span class="info-box-number">2</span>
             </div>
-            <!-- /.info-box-content -->
         </div>
-        <!-- /.info-box -->
     </div>
-    <!-- /.col -->
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
-                <span class="info-box-number">2,000</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <!-- /.col -->
 </div>
 <!-- /.row --> <a routerLink="home" class="brand-link"></a>
+
+<!-- Default box -->
+<div class="card card-solid">
+    <div class="card-body pb-0">
+        <div class="row d-flex align-items-stretch">
+
+            <div *ngFor="let product of products" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                <div class="card bg-light">
+                    <div class="card-header text-muted border-bottom-0">
+                        {{product.id}}
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="row">
+                            <div class="col-7">
+                                <h2 class="lead"><b>{{product.title}}</b></h2>
+                                <p class="text-muted text-sm">
+                                <p>{{product.description}}</p>
+                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                    <li class="small">
+                                        <b>Price</b> {{product.price}}
+                                    </li>
+                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>
+                                        <b>Quantity</b> {{product.quantity}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-5 text-center">
+                                <img src="../../../../assets/img/prod-1.jpg" alt="" class="img-circle img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-right">
+
+                            <a [routerLink]="['/products', product.id]" routerLinkActive="router-link-active" href="#"
+                                class="btn btn-sm btn-primary">
+                                <i class="fas fa-user"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <p-paginator [rows]="5" [totalRecords]="1000" [rowsPerPageOptions]="[6,15,25]"
+            (onPageChange)="paginate($event)">
+        </p-paginator>
+
+    </div>
+    <!-- /.card-footer -->
+</div>
+<!-- /.card -->
