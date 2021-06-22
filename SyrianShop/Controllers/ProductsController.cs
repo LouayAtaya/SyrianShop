@@ -19,7 +19,7 @@ namespace SyrianShop.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private ProductRepository _productRepository;
+        private readonly ProductRepository _productRepository;
 
         public ProductsController(ProductRepository productRepository)
         {
