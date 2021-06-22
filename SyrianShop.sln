@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyrianShop", "SyrianShop\SyrianShop.csproj", "{D974F9A8-5C32-4D26-A6C4-4FAB60FA6BB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyrainShopInterface", "SyrainShopInterface\SyrainShopInterface.csproj", "{A1DB1FE8-807D-4B6D-A3E0-130547DEBD5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopInterface", "ShopInterface\ShopInterface.csproj", "{814AE318-B1A7-4C35-8933-721BB5F5D502}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{D974F9A8-5C32-4D26-A6C4-4FAB60FA6BB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D974F9A8-5C32-4D26-A6C4-4FAB60FA6BB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D974F9A8-5C32-4D26-A6C4-4FAB60FA6BB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1DB1FE8-807D-4B6D-A3E0-130547DEBD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1DB1FE8-807D-4B6D-A3E0-130547DEBD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1DB1FE8-807D-4B6D-A3E0-130547DEBD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1DB1FE8-807D-4B6D-A3E0-130547DEBD5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814AE318-B1A7-4C35-8933-721BB5F5D502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814AE318-B1A7-4C35-8933-721BB5F5D502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814AE318-B1A7-4C35-8933-721BB5F5D502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814AE318-B1A7-4C35-8933-721BB5F5D502}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
