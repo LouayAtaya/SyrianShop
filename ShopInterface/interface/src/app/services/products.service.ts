@@ -16,13 +16,14 @@ export class ProductsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAll(productParam:ProductParam): Observable<ProductPaginationResult[]>{
+  public getAll(productParam:ProductParam): Observable<ProductPaginationResult>{
+
     let params= new HttpParams();
     params=params.append("sortBy",productParam.sortBy);
     params=params.append("pageStart",productParam.pageStart.toString());
     params=params.append("pageSize",productParam.pageSize.toString());
 
-    return this.httpClient.get<ProductPaginationResult[]>(this.baseUrl+"/products",{params:params})
+    return this.httpClient.get<ProductPaginationResult>(this.baseUrl+"/products",{params:params})
     
   }
 
@@ -38,6 +39,10 @@ export class ProductsService {
 
   public put(id:number,employee: Product):Observable<Product>{
     return this.httpClient.put<Product>(this.baseUrl+"/products/"+id,employee);
+  }
+
+  public delete(id:number):Observable<Product>{
+    return this.httpClient.delete<Product>(this.baseUrl+"/products/"+id);
   }
 
 }

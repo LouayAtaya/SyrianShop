@@ -31,7 +31,7 @@ namespace SyrianShop.Controllers
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
-        public ActionResult<User> Login(UserDto loginUser)
+        public ActionResult<TokenDto> Login(UserDto loginUser)
         {
             
             try
@@ -40,11 +40,13 @@ namespace SyrianShop.Controllers
 
                 if (user == null)
                 {
-                    return Unauthorized(new ApiErrorResponse(HttpStatusCode.Unauthorized, "Invalid Login Credentials: User Name Or Password"));
+                    return BadRequest(new ApiErrorResponse(HttpStatusCode.BadRequest, "Invalid Login Credentials: User Name Or Password"));
                 }
 
                 var token = JwtTokenGenerator.GenerateToken(user);
-                return Ok(new { token= token });
+
+                TokenDto tokenDto = new TokenDto() { Token = token };
+                return Ok(tokenDto);
 
             }
             catch(Exception e)

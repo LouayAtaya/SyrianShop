@@ -34,7 +34,7 @@ export class ProductDetailComponent implements OnInit {
         this.product=data;
         console.log(this.product);
       },
-      error=> this.message="No Products Found, Please cheke the Notification, or contact System Adminstrator"
+      error=> this.message="No Product Found, Please check the Notification, or contact System Adminstrator"
     )
   }
 }

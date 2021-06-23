@@ -8,21 +8,40 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start with us</p>
 
-                <form action="../../index3.html" method="post">
+                <form #loginForm="ngForm" (ngSubmit)="onSignInSubmit(loginForm)">
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input id="title" name="name" #name="ngModel" [(ngModel)]="userDto.name" type="text"
+                            class="form-control" placeholder="User Name" required minlength=3>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+
+                    </div>
+                    <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+                        <div *ngIf="name.errors.required">
+                            Name is required
+                        </div>
+                        <div *ngIf="name.errors.minlength">
+                            Name min length is 3
+                        </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input name="password" #password="ngModel" [(ngModel)]="userDto.password" type="password"
+                            class="form-control" placeholder="Password" required minlength="5">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger" *ngIf="password.touched && !password.valid">
+                        <div *ngIf="password.errors.required">
+                            password is required
+                        </div>
+                        <div *ngIf="password.errors.minlength">
+                            password min length is 5
                         </div>
                     </div>
                     <div class="row">
@@ -36,7 +55,8 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary btn-block">Sign
+                                In</button>
                         </div>
                         <!-- /.col -->
                     </div>

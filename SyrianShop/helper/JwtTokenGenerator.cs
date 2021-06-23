@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SyrianShop.models;
 using System;
 using System.Collections.Generic;
@@ -29,15 +30,21 @@ namespace SyrianShop.helper
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
                 new Claim("userName", user.Name),
-                new Claim("userId", user.Name)
+                new Claim("userId", user.Id.ToString()),
 
             };
 
             // Add roles as multiple claims
+            var userRoles = new List<string>();
             foreach (var role in user.Roles)
             {
+                userRoles.Add(role.Name);
                 claims.Add(new Claim(ClaimTypes.Role, role.Name));
             }
+
+            //store roles Array
+            claims.Add(new Claim("userRoles", JsonConvert.SerializeObject(userRoles)));
+
 
             //Create Secrurity token object by giving required parameters
 

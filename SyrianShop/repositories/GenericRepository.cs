@@ -58,7 +58,7 @@ namespace SyrianShop.repositories
             }
         }
 
-        public async void Delete(T entity)
+        public async Task Delete(T entity)
         {
             try
             {

@@ -1,17 +1,16 @@
 import { ProductUpdateComponent } from './product-update/product-update.component';
-import { ProductDeleteComponent } from './product-delete/product-delete.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 import { ProductAddComponent } from './product-add/product-add.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
-  {path:"", component:ProductListComponent},
-  {path:"add", component:ProductAddComponent},
+  {path:"", component:ProductListComponent, canActivate:[AuthGuard] , data:{roles:'Admin'}},
+  {path:"add", component:ProductAddComponent, canActivate:[AuthGuard] , data:{roles:'Admin'}},
   {path:":id", component:ProductDetailComponent},
-  {path:"delete/:id", component:ProductDeleteComponent},
-  {path:"update/:id", component:ProductUpdateComponent}
+  {path:"update/:id", component:ProductUpdateComponent, canActivate:[AuthGuard] , data:{roles:'Admin'}}
 
 ];
 

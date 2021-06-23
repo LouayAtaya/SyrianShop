@@ -1,1 +1,84 @@
-<p>product-update works!</p>
+<app-content-header *ngIf="product; else notFound" title="Update Product" rootPath="Home"
+    subPath="update/ {{product.title}}">
+</app-content-header>
+
+<ng-template #notFound>
+    <app-content-header title="Update Product" rootPath="Home">
+    </app-content-header>
+</ng-template>
+
+<div *ngIf="message" class="row">
+
+    <div class="col-md-12">
+        <div class="card card-warning ">
+            <div class="card-header">
+                <h3 class="card-title">Not Found!</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                {{message}}
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+<div *ngIf="product" class="row">
+    <div class="col-md-8">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Product</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                        <i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="inputName">Product Title</label>
+                    <input type="text" id="inputName" class="form-control" placeholder="Title">
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription">Product Description</label>
+                    <textarea id="inputDescription" class="form-control" rows="4" placeholder="Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputClientCompany">Product Price</label>
+                    <input type="number" class="form-control" placeholder="Price">
+                </div>
+                <div class="form-group">
+                    <label for="inputProjectLeader">Prodcut Quantity</label>
+                    <input type="number" class="form-control" placeholder="Quantity">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="">Upload</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info btn-success btn-lg">Submit</button>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>

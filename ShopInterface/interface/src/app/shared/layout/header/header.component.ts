@@ -1,3 +1,4 @@
+import { UsersService } from './../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
+  
+  }
+
+  isAuthentecated(){
+    return this.usersService.isAuthenticated();
+  }
+
+  logout(){
+    this.usersService.logout();
   }
 
 }

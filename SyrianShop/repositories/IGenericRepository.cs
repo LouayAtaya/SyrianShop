@@ -15,7 +15,7 @@ namespace SyrianShop.repositories
 
         Task<T> Add(T entity);
 
-        void Delete(T entity);
+        Task Delete(T entity);
 
         Task<T> Edit(T entity);
 

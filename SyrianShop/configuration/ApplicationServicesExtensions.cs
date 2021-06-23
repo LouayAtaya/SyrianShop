@@ -27,7 +27,7 @@ namespace SyrianShop.configuration
             //enable cors
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             });
             /*
             services.AddCors(c =>

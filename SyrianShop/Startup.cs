@@ -73,7 +73,7 @@ namespace SyrianShop
 
             app.UseRouting();
 
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 
             app.UseAuthentication();
             app.UseAuthorization();

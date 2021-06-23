@@ -7,6 +7,7 @@ import { HomeRoutingModule } from './home.routing.module';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { LoginComponent } from './pages/login/login.component';
 import {PaginatorModule} from 'primeng/paginator';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import {PaginatorModule} from 'primeng/paginator';
   imports: [
     CommonModule,
     HomeRoutingModule,
+    FormsModule,
     SharedModule,
     PaginatorModule
   ],

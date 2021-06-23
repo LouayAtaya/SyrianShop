@@ -6,11 +6,12 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
 import { ContentHeaderComponent } from './layout/content-header/content-header.component';
+import { UnAutherizedComponent } from './layout/un-autherized/un-autherized.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, SidebarComponent, FooterComponent, NotFoundComponent, ContentHeaderComponent],
+  declarations: [HeaderComponent, SidebarComponent, FooterComponent, NotFoundComponent, ContentHeaderComponent, UnAutherizedComponent],
   imports: [
     CommonModule,
     RouterModule

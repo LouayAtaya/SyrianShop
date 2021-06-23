@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProductDeleteComponent } from './product-delete.component';
+import { UnAutherizedComponent } from './un-autherized.component';
 
-describe('ProductDeleteComponent', () => {
-  let component: ProductDeleteComponent;
-  let fixture: ComponentFixture<ProductDeleteComponent>;
+describe('UnAutherizedComponent', () => {
+  let component: UnAutherizedComponent;
+  let fixture: ComponentFixture<UnAutherizedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductDeleteComponent ]
+      declarations: [ UnAutherizedComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductDeleteComponent);
+    fixture = TestBed.createComponent(UnAutherizedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

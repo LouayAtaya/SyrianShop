@@ -23,16 +23,20 @@ export class ErrorInterceptor implements HttpInterceptor {
         request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
     }
 
-    /*if (!request.headers.has('Content-Type')) {
+    if (!request.headers.has('Content-Type')) {
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
-    }*/
+    }
 
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
     return next.handle(request).pipe(
       catchError(errorRes=>{
         if(errorRes){
-          this.toastrService.error(errorRes.error.message,errorRes.error.stautusCode)
+
+          if(!errorRes.stautusCode)
+            this.toastrService.error("Un Known Error has been Accourd, ",errorRes.error.stautusCode)
+          else
+            this.toastrService.error(errorRes.error.message,errorRes.error.stautusCode)
           /*
           if(errorRes.status===400){
            

@@ -11,7 +11,7 @@ import { ProductPaginationResult } from 'src/app/models/product-pagination-resul
 })
 export class HomeComponent implements OnInit {
 
-  productPaginationResult:ProductPaginationResult[];
+  productPaginationResult:ProductPaginationResult;
   products:Product[];
 
   productParam: ProductParam;
@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   paginate(event) {
-    console.log(event);
     this.productParam.pageStart=event.first; //Index of the first record
     this.productParam.pageSize=event.rows;   //Number of rows to display in new page
     //event.pageCount = Total number of pages
@@ -41,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.proudctsServcie.getAll(this.productParam).subscribe(
       data=>{
         this.productPaginationResult=data;
-        this.products=this.productPaginationResult['data'];
+        this.products=this.productPaginationResult.data;
         console.log(this.products)
       },
       error=>{

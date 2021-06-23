@@ -1,3 +1,5 @@
+import { UserInfo } from '../../../models/user-info';
+import { UsersService } from './../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.sass']
 })
 export class SidebarComponent implements OnInit {
+  currentUser:UserInfo;
 
-  constructor() { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
+    this.currentUser=this.usersService.currentUser;
   }
 
+  isAuthenticated(){
+    return this.usersService.isAuthenticated()
+  }
+
+  menuItemIsShown(requiredRole){
+    return this.usersService.isAutherized(requiredRole);
+  }
+  
 }

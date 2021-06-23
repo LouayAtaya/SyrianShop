@@ -128,7 +128,7 @@ namespace SyrianShop.Controllers
                     return NotFound(new ApiErrorResponse(HttpStatusCode.NotFound));
                 }
 
-                _productRepository.Delete(product);
+                await _productRepository.Delete(product);
                 return Ok(product);
             }
             catch

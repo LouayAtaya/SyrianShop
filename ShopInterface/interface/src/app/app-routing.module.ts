@@ -1,8 +1,8 @@
-import { ProductListComponent } from './products/product-list/product-list.component';
+import { UnAutherizedComponent } from './shared/layout/un-autherized/un-autherized.component';
 import { NotFoundComponent } from './shared/layout/not-found/not-found.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/pages/home/home.component';
+
 
 const routes: Routes = [
   {path:"", 
@@ -16,6 +16,7 @@ const routes: Routes = [
   },
 
   {path:"404", component:NotFoundComponent },
+  {path:"401", component:UnAutherizedComponent },
 
   {path:"**", redirectTo:"/404" }
 
