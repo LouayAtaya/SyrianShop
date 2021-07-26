@@ -33,7 +33,6 @@ namespace SyrianShop.Controllers
         [AllowAnonymous]
         public ActionResult<TokenDto> Login(UserDto loginUser)
         {
-            
             try
             {
                 var user=_userRepository.login(loginUser);

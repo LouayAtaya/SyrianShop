@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.productParam=new ProductParam();
-    this.productParam.pageSize=5;
+    this.productParam.pageSize=6;
 
     this.getProducts();
   }
