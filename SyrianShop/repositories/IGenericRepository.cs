@@ -13,7 +13,7 @@ namespace SyrianShop.repositories
 
         Task<IList<T>> GetAllAsync();
 
-        Task<T> Add(T entity);
+        Task<T> Add(T entity); 
 
         Task Delete(T entity);
 
